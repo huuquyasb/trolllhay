@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Route } from '@angular/router/src/config';
+import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,13 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private user: UserService) { }
 
   ngOnInit() {
   }
-  loginUser(formLogin){   
-      console.log(formLogin);
-      //throw new Error('Form is in valid');   
+  loginUser(formLogin) {
+    //console.log(formLogin.value);
+    var username = formLogin.value.username;
+    var password = formLogin.value.password;
+
+    if (username == "huuquy@gmail.com" && password == "2008") {
+      this.user.setUserLoggedIn();
+      this.router.navigate(['dashboard']);
+    }
+    //throw new Error('Form is in valid');   
   }
 
 }

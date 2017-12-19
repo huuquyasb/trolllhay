@@ -39,21 +39,28 @@
             <span class="input-group-addon">
               <i class="fa fa-user"></i>
             </span>
-            <input type="text" class="form-control" [(ngModel)]="username" name="username" placeholder="Email address" required>
+            <input type="text" class="form-control" ngModel #txtUserName="ngModel" name="username" placeholder="Email address" email
+              required>
           </div>
-          <span class="help-block" *ngIf="formLogin.controls.username?.errors?.required">
-                User Name is required.
+          <span class="help-block" *ngIf="txtUserName.touched && txtUserName.errors?.required">
+            User Name is required.
           </span>
+          <span class="help-block" *ngIf="txtUserName.touched && txtUserName.errors?.email">
+            Email is invalid.
+          </span>
+
           <br/>
           <div class="input-group">
             <span class="input-group-addon">
               <i class="fa fa-lock"></i>
             </span>
-            <input type="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Password" required>
+            <input type="password" class="form-control" ngModel #txtPass="ngModel" name="password" placeholder="Password" required>
           </div>
-          <span class="help-block">Password error</span>
-
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+          <span class="help-block" *ngIf="txtPass.touched && txtPass.errors?.required">
+            Password is required.
+          </span>
+          <br/>
+          <button [disabled]="formLogin.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
 
         </div>
       </div>

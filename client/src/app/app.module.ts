@@ -11,11 +11,17 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { UserService } from './user.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {AuthguardGuard} from './authguard.guard';
 
 const appRoutes: Routes = [
   { path: 'contact', component: ContactsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'dashboard', canActivate: [AuthguardGuard], component: DashboardComponent },
   { path: '', component: HomeComponent },
   // { path: '',
   //   redirectTo: '/home',
@@ -33,7 +39,10 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     PagenotfoundComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent,
+    FooterComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +53,7 @@ const appRoutes: Routes = [
       { enableTracing: false } // <-- debugging purposes only
     )
   ],
-  providers: [],
+  providers: [UserService,AuthguardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
