@@ -15,7 +15,21 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserService } from './user.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {AuthguardGuard} from './authguard.guard';
+import { AuthguardGuard } from './authguard.guard';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyCKu38ZXYlpr3v1aot3nqp5ux93O-GJ-j8',
+  authDomain: 'trollhay-88c51.firebaseapp.com',
+  databaseURL: 'https://trollhay-88c51.firebaseio.com',
+  projectId: 'trollhay-88c51',
+  storageBucket: 'trollhay-88c51.appspot.com',
+  messagingSenderId: '81450779138'
+};
 
 const appRoutes: Routes = [
   { path: 'contact', component: ContactsComponent },
@@ -48,12 +62,15 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpModule,
     FormsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
     )
   ],
-  providers: [UserService,AuthguardGuard],
+  providers: [UserService, AuthguardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
